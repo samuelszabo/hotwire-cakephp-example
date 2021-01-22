@@ -327,6 +327,10 @@ return [
              * which is the recommended value in production environments
              */
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
+            'host' => '127.0.0.1',
+            'username' => 'root',
+            'password' => 'root',
+            'database' => 'test',
         ],
 
         /*
