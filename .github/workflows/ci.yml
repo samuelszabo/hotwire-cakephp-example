@@ -11,6 +11,16 @@ on:
 jobs:
   testsuite:
     runs-on: ubuntu-18.04
+    services:
+      mysql:
+        image: mariadb:10.1
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     strategy:
       fail-fast: false
       matrix:
@@ -18,9 +28,9 @@ jobs:
     name: PHP ${{ matrix.php-version }}
 
     steps:
-    - uses: actions/checkout@v1
-      with:
-        fetch-depth: 1
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -39,6 +49,8 @@ jobs:
         composer run-script post-install-cmd --no-interaction
 
     - name: Run PHPUnit
+      env:
+        MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
       run: |
           vendor/bin/phpunit
 
