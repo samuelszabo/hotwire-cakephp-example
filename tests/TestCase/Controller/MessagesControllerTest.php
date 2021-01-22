@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\MessagesController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -67,7 +66,7 @@ class MessagesControllerTest extends TestCase
         $this->enableSecurityToken();
         $this->enableCsrfToken();
         $this->configRequest([
-            'headers' => ['Accept' => 'text/vnd.turbo-stream.html']
+            'headers' => ['Accept' => 'text/vnd.turbo-stream.html'],
         ]);
         $this->post('/messages/create', [
             'room_id' => 1,
@@ -75,7 +74,7 @@ class MessagesControllerTest extends TestCase
         ]);
         $this->assertResponseOk();
         $this->assertResponseContains('<template>');
-        $this->assertHeader('content-type','text/vnd.turbo-stream.html; charset=UTF-8');
+        $this->assertHeader('content-type', 'text/vnd.turbo-stream.html; charset=UTF-8');
     }
 
     /**

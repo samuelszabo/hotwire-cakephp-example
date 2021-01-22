@@ -57,9 +57,12 @@ class AppController extends Controller
         $this->loadComponent('FormProtection');
     }
 
+    /**
+     * @return bool
+     */
     public function isTurbo(): bool
     {
-        return $this->getRequest()->accepts('text/vnd.turbo-stream.html');
+        return (bool)$this->getRequest()->accepts('text/vnd.turbo-stream.html');
         //        return $this->getRequest()->getHeader('Turbo-Frame') !== [];
     }
 }
