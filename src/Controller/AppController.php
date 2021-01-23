@@ -18,6 +18,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
+use Cake\Http\Response;
 
 /**
  * Application Controller
@@ -42,7 +44,7 @@ class AppController extends Controller
     {
         parent::initialize();
 
-//        $this->loadComponent('RequestHandler');
+        $this->loadComponent('RequestHandler');
         $this->response->setTypeMap('turbo_stream', 'text/vnd.turbo-stream.html');
         $this->loadComponent('Flash');
 
@@ -64,5 +66,26 @@ class AppController extends Controller
     {
         return (bool)$this->getRequest()->accepts('text/vnd.turbo-stream.html');
         //        return $this->getRequest()->getHeader('Turbo-Frame') !== [];
+    }
+
+    /**
+     * @param string|array|\Psr\Http\Message\UriInterface $url A string, array-based URL or UriInterface instance.
+     * @param int $status HTTP status code. Defaults to `302`.
+     * @return Response|null
+     */
+    public function redirectOrTurbo($url, $status = 302): ?Response
+    {
+        if (!$this->isTurbo()) {
+            return $this->redirect($url, $status);
+        }
+        return null;
+    }
+
+    public function afterFilter(EventInterface $event)
+    {
+        if ($this->isTurbo()) {
+            $this->RequestHandler->respondAs('turbo_stream');
+        }
+        parent::beforeRender($event);
     }
 }
