@@ -5,28 +5,7 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Room'), ['action' => 'edit', $room->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Room'), [
-                'action' => 'delete',
-                $room->id,
-            ], ['confirm' => __('Are you sure you want to delete # {0}?', $room->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Rooms'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Room'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80"  data-controller="hello">
-        <input data-hello-target="name" type="text">
-
-        <button data-action="click->hello#greet">
-            Greet
-        </button>
-
-        <span data-hello-target="output">
-  </span>
-
+    <div class="column-responsive column">
         <div class="rooms view content">
             <turbo-frame id="room">
                 <turbo-stream action="append" target="messages">
