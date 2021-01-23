@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Datasource\ResultSetInterface;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 
@@ -11,7 +10,7 @@ use Cake\Http\Response;
  * Messages Controller
  *
  * @property \App\Model\Table\MessagesTable $Messages
- * @method \App\Model\Entity\Message[]|ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Message[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class MessagesController extends AppController
 {
@@ -68,6 +67,7 @@ class MessagesController extends AppController
         $message = $this->Messages->patchEntity($message, $this->request->getData());
         $this->set('message', $message);
         $this->Messages->saveOrFail($message);
+
         return $this->redirectOrTurbo(['controller' => 'Rooms', 'action' => 'view', $message->room_id]);
     }
 

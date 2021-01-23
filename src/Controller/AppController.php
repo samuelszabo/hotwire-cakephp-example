@@ -71,16 +71,21 @@ class AppController extends Controller
     /**
      * @param string|array|\Psr\Http\Message\UriInterface $url A string, array-based URL or UriInterface instance.
      * @param int $status HTTP status code. Defaults to `302`.
-     * @return Response|null
+     * @return \Cake\Http\Response|null
      */
     public function redirectOrTurbo($url, $status = 302): ?Response
     {
         if (!$this->isTurbo()) {
             return $this->redirect($url, $status);
         }
+
         return null;
     }
 
+    /**
+     * @param EventInterface $event
+     * @return Response|void|null
+     */
     public function afterFilter(EventInterface $event)
     {
         if ($this->isTurbo()) {
