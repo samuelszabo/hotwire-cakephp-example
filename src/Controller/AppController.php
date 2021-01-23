@@ -83,8 +83,8 @@ class AppController extends Controller
     }
 
     /**
-     * @param EventInterface $event
-     * @return Response|void|null
+     * @param \Cake\Event\EventInterface $event Event
+     * @return \Cake\Http\Response|void|null
      */
     public function afterFilter(EventInterface $event)
     {
