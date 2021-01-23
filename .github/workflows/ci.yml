@@ -92,5 +92,8 @@ jobs:
         extensions: mbstring, intl
         coverage: none
 
+    - name: composer install
+      run: composer require --dev phpstan/phpstan
+
     - name: Run phpstan
       run: vendor/bin/phpstan.phar analyse
