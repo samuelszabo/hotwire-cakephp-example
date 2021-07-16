@@ -1,8 +1,8 @@
 # select what technology your build uses
-use: [ php@8.0 ]
+use: [ php@7.4 ]
 # which commands to run to build
 run:
-  - apt-get install php8.0-intl
+  - apt-get install php7.4-intl
   - composer install
 # which files / folders to deploy after build
 deploy: [ "." ]
