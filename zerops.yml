@@ -2,6 +2,7 @@
 use: [ php@8.0 ]
 # which commands to run to build
 run:
+  - apt-get install php8.0-intl
   - composer install
 # which files / folders to deploy after build
 deploy: [ "." ]
